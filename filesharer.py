@@ -1,0 +1,3 @@
+
+class FileSharer:
+    pass
