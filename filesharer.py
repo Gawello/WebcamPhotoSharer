@@ -1,3 +1,4 @@
 
 class FileSharer:
-    pass
+    def __init__(self):
+        pass
