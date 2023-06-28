@@ -3,7 +3,7 @@
         cols: 1
         Camera:
             id: camera
-            resolution: (1280, 720)
+            resolution: (640, 480)
             play: False
         Button:
             id: camera_button
@@ -16,17 +16,17 @@
 <ImageScreen>:
     GridLayout:
         cols: 1
-            Image:
+        Image:
+        Button:
+            text: 'Create Sharable Link'
+        Label:
+            text: ''
+        GridLayout:
+            cols: 2
             Button:
-                text: 'Create Sharable Link'
-            Label:
-                text: ''
-            GridLayout:
-                cols: 2
-                Button:
-                    text: 'Copy Link'
-                Button:
-                    text: 'Open Link'
+                text: 'Copy Link'
+            Button:
+                text: 'Open Link'
 
 <RootWidget>:
     CameraScreen:
