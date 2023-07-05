@@ -1,3 +1,5 @@
+import webbrowser
+
 from kivy.app import App
 from kivy.core.clipboard import Clipboard
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -23,7 +25,8 @@ class CameraScreen(Screen):
         self.ids.camera.texture = None
 
     def capture(self):
-        """Creates a filename with the current time, captures and saves a photo image under that filename"""
+        """Creates a filename with the current time, captures and saves a
+        photo image under that filename"""
         current_time = time.strftime('%Y%m%d-%H%M%S')
         self.filepath = f"files/{current_time}.png"
         self.ids.camera.export_to_png(self.filepath)
@@ -32,15 +35,28 @@ class CameraScreen(Screen):
 
 
 class ImageScreen(Screen):
+    link_message = "Create Link First"
     def create_link(self):
-        """Accesses the photo filepath, uploads it to the web, and inserts the link int the Label widget"""
+        """Accesses the photo filepath, uploads it to the web, and inserts
+        the link int the Label widget"""
         file_path = App.get_running_app().root.ids.camera_screen.filepath
         filesharer = FileSharer(filepath=file_path)
         self.url = filesharer.share()
         self.ids.link.text = self.url
 
     def copy_link(self):
-        Clipboard.copy(self.url)
+        """Copy link to the clipboard available for pasting"""
+        try:
+            Clipboard.copy(self.url)
+        except:
+            self.ids.link.text = self.link_message
+
+    def open_link(self):
+        """Open link with default browser"""
+        try:
+            webbrowser.open(self.url)
+        except:
+            self.ids.link.text = self.link_message
 
 
 class RootWidget(ScreenManager):
